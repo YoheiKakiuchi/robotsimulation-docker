@@ -25,8 +25,9 @@ RUN cd ${WORKHOME}/catkin_ws && \
 RUN cp ${WORKHOME}/${POINTGREY_SDK}/bin/SFNC_GenTL* /opt/ros/kinetic/lib/nodelet/
 
 ADD ./camera.launch ${WORKHOME}
-RUN mkdir -p ${WORKHOME}/.ros/camera_info
-ADD ./16276501.yaml ${WORKHOME}/.ros/camera_info/
+##RUN mkdir -p ${WORKHOME}/.ros/camera_info
+##ADD ./16276501.yaml ${WORKHOME}/.ros/camera_info/
+ADD ./16276501.yaml ${WORKHOME}/
 ADD ./my_entrypoint.sh /
 
 ENTRYPOINT ["/my_entrypoint.sh"]
