@@ -1,4 +1,4 @@
-# install docker_test
+# install choreonoid on docker
 
 ## install docker and nvidia-docker
 
