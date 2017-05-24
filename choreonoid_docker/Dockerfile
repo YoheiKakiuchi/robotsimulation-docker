@@ -17,6 +17,7 @@ RUN cd /home/choreonoid/catkin_ws && \
     wstool init src && \
     wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid.git --git && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
+    wstool set -y -t src hrpsys https://github.com/fkanehiro/hrpsys-base.git --git && \
     wstool update -t src && \
     rosdep install -y -r --from-paths src --ignore-src
 
