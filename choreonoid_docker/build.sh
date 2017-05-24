@@ -1,3 +1,6 @@
 #!/bin/bash
 
-nvidia-docker build --tag=rosnvidia .
+#DOCKER=docker
+DOCKER=nvidia-docker
+
+${DOCKER} build --tag=choreonoidsim
