@@ -28,12 +28,12 @@ RUN cd /home/choreonoid/src && \
     mkdir -p choreonoid/build && \
     cd choreonoid/build && \
     cmake .. -DCMAKE_INSTALL_PREFIX=${CNOID_INSTALL_DIR} -DENABLE_INSTALL_RPATH=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DOPENRTM_DIR=/opt/ros/indigo && \
-    make -j4 && \
+    make -j4  > /dev/null && \
     make install
 
 ##
 RUN cd /home/choreonoid/catkin_ws && \
-    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials"
+    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials --no-status --no-notify 1> /dev/null 2> /dev/null"
 
 ADD ./my_entrypoint.sh /
 
