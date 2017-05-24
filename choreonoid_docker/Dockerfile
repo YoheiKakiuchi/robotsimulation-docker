@@ -34,5 +34,7 @@ RUN cd /home/choreonoid/src && \
 RUN cd /home/choreonoid/catkin_ws && \
     /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials"
 
-#ENTRYPOINT ["/my_entrypoint.sh"]
-#CMD ["bash"]
+ADD ./my_entrypoint.sh /
+
+ENTRYPOINT ["/my_entrypoint.sh"]
+CMD ["bash"]
