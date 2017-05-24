@@ -19,8 +19,19 @@ $ ./build.sh
 ## run choreonoid
 ~~~
 $ xhost +local:root ### warning it is not safe, you can revert by `xhost -local:root` after using choreonoid
-$ ./run.sh
+$ ./run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch
 ~~~
+
+## use simulation using ROS
+~~~
+$ nvidia-docker exec -it choreonoid_simulation bash
+docker$ source $WORKHOME/catkin_ws/devel/setup.bash
+docker$ roscd hrpsys_choreonoid_tutorials
+docker$ roseus euslisp/jaxon_jvrc-interface.l
+docker$roseus$ jaxon_jvrc-init
+;; *ri* and *jaxon_jvrc* created
+~~~
+http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp
 
 ## install docker
 https://docs.docker.com/engine/installation/linux/ubuntu/
