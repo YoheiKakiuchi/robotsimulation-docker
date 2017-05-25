@@ -9,7 +9,7 @@ ENV WORKHOME /home/choreonoid
 
 ### for choreonoid
 RUN apt-get update
-RUN apt-get install -y libyaml-dev
+RUN apt-get install -y libyaml-dev mesa-utils
 
 ## ros pkg
 RUN mkdir -p /home/choreonoid/catkin_ws
@@ -19,6 +19,8 @@ RUN cd /home/choreonoid/catkin_ws && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
     wstool set -y -t src hrpsys https://github.com/fkanehiro/hrpsys-base.git --git && \
     wstool update -t src && \
+    git clone https://github.com/jsk-ros-pkg/jsk_robot.git src/jsk_robot && \
+    (cd src/jsk_robot; rm -rf README.md jsk_baxter_robot jsk_naoqi_robot jsk_robot doc jsk_fetch_robot jsk_pr2_robot) && \
     rosdep install -y -r --from-paths src --ignore-src
 
 ## choreonoid
@@ -27,13 +29,13 @@ RUN cd /home/choreonoid/src && \
     git clone https://github.com/s-nakaoka/choreonoid.git && \
     mkdir -p choreonoid/build && \
     cd choreonoid/build && \
-    cmake .. -DCMAKE_INSTALL_PREFIX=${CNOID_INSTALL_DIR} -DENABLE_INSTALL_RPATH=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DOPENRTM_DIR=/opt/ros/indigo && \
-    make -j4  > /dev/null && \
-    make install
+    cmake .. -DCMAKE_INSTALL_PREFIX=${CNOID_INSTALL_DIR} -DENABLE_INSTALL_RPATH=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DOPENRTM_DIR=/opt/ros/indigo 1> /dev/null 2> /dev/null && \
+    make -j4 1> /dev/null 2> /dev/null && \
+    make install 1> /dev/null 2> /dev/null
 
 ##
 RUN cd /home/choreonoid/catkin_ws && \
-    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials --no-status --no-notify 1> /dev/null 2> /dev/null"
+    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup --no-status --no-notify 1> /dev/null 2> /dev/null"
 
 ADD ./my_entrypoint.sh /
 
