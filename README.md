@@ -34,6 +34,8 @@ docker$roseus$ jaxon_jvrc-init
 http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp
 
 # Install docker
+
+### Install docker
 https://docs.docker.com/engine/installation/linux/ubuntu/
 ~~~
 $ sudo apt-get update
@@ -79,9 +81,11 @@ https://github.com/NVIDIA/nvidia-docker
 
 ### Install nvidia-docker and nvidia-docker-plugin
 ~~~
+$ sudo apt-get install nvidia-modprobe
 $ wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
 $ sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
 $ sudo gpasswd -a $USER nvidia-docker
+$ sudo reboot
 ~~~
 
 ### not needed but ...
@@ -93,4 +97,16 @@ $ sudo reboot
 ~~~
 $ nvidia-docker run --name=nvtest nvidia/cuda nvidia-smi
 $ nvidia-docker rm nvtest
+~~~
+
+### uninstall nvidia-docker
+~~~
+$ docker volume prune
+$ docker rmi nvidia/cuda
+$ docker rmi $(docker images | grep '<none>' | awk '{print$3}')
+$ docker rm $(docker ps -aq)
+$ sudo apt-get purge nvidia-modprobe
+$ sudo apt-get purge nvidia-docker
+$ sudo groupdel nvidia-docker
+$ sudo rm -rf /var/lib/nvidia-docker
 ~~~
