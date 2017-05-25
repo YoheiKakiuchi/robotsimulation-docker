@@ -109,4 +109,5 @@ $ sudo apt-get purge nvidia-modprobe
 $ sudo apt-get purge nvidia-docker
 $ sudo groupdel nvidia-docker
 $ sudo rm -rf /var/lib/nvidia-docker
+$ sudo reboot
 ~~~
