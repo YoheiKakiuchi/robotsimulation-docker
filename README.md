@@ -1,6 +1,6 @@
-# install choreonoid on docker
+# Install choreonoid on docker
 
-## install docker and nvidia-docker
+## Install docker and nvidia-docker
 
 install docker and install nvidia-docker (described later in this document)
 
@@ -9,20 +9,20 @@ reference
 - http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 - http://wiki.ros.org/docker/Tutorials/GUI
 
-## building choreonoid
+## Building simulation (choreonoid)
 ~~~
 $ git clone https://github.com/YoheiKakiuchi/docker_tests.git
 $ cd docker_tests/choreonoid_docker
 $ ./build.sh
 ~~~
 
-## run choreonoid
+## Run simulation (choreonoid)
 ~~~
 $ xhost +local:root ### warning it is not safe, you can revert by `xhost -local:root` after using choreonoid
 $ ./run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch
 ~~~
 
-## use simulation using ROS
+## Using simulation with ROS
 ~~~
 $ nvidia-docker exec -it choreonoid_simulation bash
 docker$ source $WORKHOME/catkin_ws/devel/setup.bash
@@ -33,7 +33,7 @@ docker$roseus$ jaxon_jvrc-init
 ~~~
 http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp
 
-## install docker
+# Install docker
 https://docs.docker.com/engine/installation/linux/ubuntu/
 ~~~
 $ sudo apt-get update
@@ -74,7 +74,7 @@ $ sudo reboot
 $ docker run hello-world
 ~~~
 
-## nvidia docker
+# Install nvidia docker
 https://github.com/NVIDIA/nvidia-docker
 
 ### Install nvidia-docker and nvidia-docker-plugin
@@ -89,7 +89,8 @@ $ sudo gpasswd -a $USER nvidia-docker
 $ sudo reboot
 ~~~
 
-### Test nvida-docker using nvidia-smi
+### test nvida-docker using nvidia-smi
 ~~~
-$ nvidia-docker run --rm nvidia/cuda nvidia-smi
+$ nvidia-docker run --name=nvtest nvidia/cuda nvidia-smi
+$ nvidia-docker rm nvtest
 ~~~
