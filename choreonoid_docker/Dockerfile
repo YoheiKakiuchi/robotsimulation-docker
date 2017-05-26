@@ -33,7 +33,7 @@ RUN cd /home/choreonoid/src && \
     make -j4 1> /dev/null 2> /dev/null && \
     make install 1> /dev/null 2> /dev/null
 
-##
+## build ros packages
 RUN cd /home/choreonoid/catkin_ws && \
     /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup --no-status --no-notify 1> /dev/null 2> /dev/null"
 
