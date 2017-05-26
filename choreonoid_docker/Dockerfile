@@ -9,7 +9,7 @@ ENV WORKHOME /home/choreonoid
 
 ### for choreonoid
 RUN apt-get update -y
-RUN apt-get install -y libyaml-dev mesa-utils
+RUN apt-get install -y libyaml-dev mesa-utils python-pip
 
 ## ros pkg
 RUN mkdir -p /home/choreonoid/catkin_ws
@@ -18,10 +18,15 @@ RUN cd /home/choreonoid/catkin_ws && \
     wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid.git --git && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
     wstool set -y -t src hrpsys https://github.com/fkanehiro/hrpsys-base.git --git && \
+    wstool set -y -t src jsk_common https://github.com/jsk-ros-pkg/jsk_common.git --git && \
+    wstool set -y -t src pr2_navigation https://github.com/PR2/pr2_navigation.git --git && \
     wstool update -t src && \
     git clone https://github.com/jsk-ros-pkg/jsk_robot.git src/jsk_robot && \
     (cd src/jsk_robot; rm -rf README.md jsk_baxter_robot jsk_naoqi_robot jsk_robot doc jsk_fetch_robot jsk_pr2_robot) && \
     rosdep install -y -r --from-paths src --ignore-src
+
+### should be solved ...,  hrpsys-base, jsk_common, pr2_navigation ###
+RUN apt-get install -y ros-indigo-jsk-tilt-laser ros-indigo-jsk-recognition
 
 ## choreonoid
 RUN mkdir -p /home/choreonoid/src 
@@ -35,7 +40,7 @@ RUN cd /home/choreonoid/src && \
 
 ## build ros packages
 RUN cd /home/choreonoid/catkin_ws && \
-    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup --no-status --no-notify 1> /dev/null 2> /dev/null"
+    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup jsk_tilt_laser pr2_navigation_self_filter --no-status --no-notify -j 1 -p 1"
 
 ADD ./my_entrypoint.sh /
 
