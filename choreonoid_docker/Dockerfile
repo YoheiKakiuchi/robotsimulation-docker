@@ -8,7 +8,7 @@ ENV PKG_CONFIG_PATH ${CNOID_INSTALL_DIR}/lib/pkgconfig:$PKG_CONFIG_PATH
 ENV WORKHOME /home/choreonoid
 
 ### for choreonoid
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get install -y libyaml-dev mesa-utils
 
 ## ros pkg

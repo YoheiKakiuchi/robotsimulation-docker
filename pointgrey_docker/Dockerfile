@@ -12,7 +12,7 @@ RUN mkdir -p ${WORKHOME}/${POINTGREY_SDK}/lib/pkgconfig
 
 ADD ./spinnaker.pc ${WORKHOME}/${POINTGREY_SDK}/lib/pkgconfig/
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update -y && apt-get install --no-install-recommends -y \
     sudo lsb-release less vim-tiny ros-kinetic-catkin python-catkin-tools ros-kinetic-image-proc ros-kinetic-stereo-image-proc net-tools iputils-ping
 
 RUN cd ${WORKHOME}/catkin_ws && \
