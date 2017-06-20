@@ -3,4 +3,4 @@
 #DOCKER=docker
 DOCKER=nvidia-docker
 
-${DOCKER} build --tag=choreonoidsim .
+${DOCKER} build --tag=yoheikakiuchi/choreonoidsim .
