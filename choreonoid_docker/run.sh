@@ -15,6 +15,6 @@ ${RUNDOC} run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="${PROG_DIR:-$DEFAULT_USER_DIR}:/home/choreonoid/user_programs" \
     -w="/home/choreonoid" \
-    choreonoidsim ${VAR}
+    yoheikakiuchi/choreonoidsim ${VAR}
 
 xhost -local:root
