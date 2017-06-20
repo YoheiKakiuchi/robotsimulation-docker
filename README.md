@@ -1,42 +1,8 @@
-# Install choreonoid on docker
-
-## Install docker and nvidia-docker
-
-install docker and install nvidia-docker (described later in this document)
-
-reference
-- http://wiki.ros.org/docker/Tutorials/Docker
-- http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
-- http://wiki.ros.org/docker/Tutorials/GUI
-
-## Building simulation (choreonoid)
-~~~
-$ git clone https://github.com/YoheiKakiuchi/docker_tests.git
-$ cd docker_tests/choreonoid_docker
-$ ./build.sh
-~~~
-
-## Run simulation (choreonoid)
-~~~
-$ xhost +local:root ### warning it is not safe, you can revert by `xhost -local:root` after using choreonoid
-$ ./run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch
-~~~
-
-## Using simulation with ROS
-~~~
-$ nvidia-docker exec -it choreonoid_simulation bash
-docker$ source $WORKHOME/catkin_ws/devel/setup.bash
-docker$ roscd hrpsys_choreonoid_tutorials
-docker$ roseus euslisp/jaxon_jvrc-interface.l
-docker$roseus$ jaxon_jvrc-init
-;; *ri* and *jaxon_jvrc* created
-~~~
-http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp
-
 # Install docker
 
 ### Install docker
 https://docs.docker.com/engine/installation/linux/ubuntu/
+
 ~~~
 $ sudo apt-get update
 
@@ -79,6 +45,11 @@ $ docker run hello-world
 # Install nvidia docker
 https://github.com/NVIDIA/nvidia-docker
 
+## Reference for using ROS
+- http://wiki.ros.org/docker/Tutorials/Docker
+- http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
+- http://wiki.ros.org/docker/Tutorials/GUI
+
 ### Install nvidia-docker and nvidia-docker-plugin
 ~~~
 $ sudo apt-get install nvidia-modprobe
@@ -111,3 +82,24 @@ $ sudo groupdel nvidia-docker
 $ sudo rm -rf /var/lib/nvidia-docker
 $ sudo reboot
 ~~~
+
+# Using choreonoid
+
+### Downlowd image
+~~~
+docker pull yoheikakiuchi/choreonoidsim
+~~~
+
+### Run simulation (choreonoid)
+~~~
+$ ./run.sh
+## this equals to './run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch'
+~~~
+
+### Advanced: Building the image by yourself
+~~~
+$ git clone https://github.com/YoheiKakiuchi/robotsimulation-docker.git ## this repository
+$ cd robotsimulation-docker/choreonoid_docker
+$ ./build.sh
+~~~
+
