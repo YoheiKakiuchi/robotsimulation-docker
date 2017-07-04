@@ -24,6 +24,11 @@ $ ./exec.sh '/my_entrypoint.sh roslaunch hrpsys_choreonoid_tutorials tracking_re
 $ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/walk-to-target.l (progn (make-random-first-position) (walk-to-target))'
 ~~~
 
+### Run robot getting up (StateNet)
+~~~
+$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/jvrc-statenet.l (start-statenet-demo))'
+~~~
+
 ### Run rviz (visualizer of ROS)
 ~~~
 $ ./exec.sh '/my_entrypoint.sh rosrun rviz rviz -d catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/jaxon_jvrc.rviz'
