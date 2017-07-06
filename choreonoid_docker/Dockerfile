@@ -18,6 +18,7 @@ RUN cd /home/choreonoid/catkin_ws && \
 #    wstool set -y -t src rtmros_choreonoid https://github.com/YoheiKakiuchi/rtmros_choreonoid.git --git -v docker_test && \
     wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid.git --git && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
+    wstool set -y -t src rtmros_common https://github.com/start-jsk/rtmros_common --git && \
     wstool set -y -t src hrpsys https://github.com/fkanehiro/hrpsys-base.git --git && \
     wstool set -y -t src jsk_common https://github.com/jsk-ros-pkg/jsk_common.git --git && \
     wstool set -y -t src pr2_navigation https://github.com/PR2/pr2_navigation.git --git && \
