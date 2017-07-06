@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RUNDOC=${DOCKER:-nvidia-docker}
-DEFAULT_USER_DIR="/tmp"
+DEFAULT_USER_DIR="$(pwd)"
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch"}
 VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/home/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
 
