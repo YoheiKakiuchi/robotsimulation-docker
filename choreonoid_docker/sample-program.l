@@ -20,10 +20,11 @@
                            ))
 
   (send *robot* :reset-pose)
+  (objects (list *robot*)) ;; visualize robot
   ;; the robot in the simulation moves to the same pose as *robot*. it takes base-time [ms].
   (send-pose :real t :base-time 2000)
 
-  (face-up-to-face-down-action)
+  (face-up-to-face-down-action :real t)
   )
 
 #|
