@@ -31,7 +31,7 @@ $ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_cho
 
 ### Run robot kicking ball (run with perception nodes)
 ~~~
-$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/kick-ball-demo.l (kick-ball-demo))'
+$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/kick-ball-demo.l (kick-ball-to-goal-demo))'
 ~~~
 
 ### Run rviz (visualizer of ROS)
