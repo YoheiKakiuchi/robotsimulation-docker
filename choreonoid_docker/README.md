@@ -40,7 +40,16 @@ $ ./exec.sh '/my_entrypoint.sh rosrun rviz rviz -d catkin_ws/src/rtmros_choreono
 ~~~
 
 ### Runnig your programs 
+* easy version
 ~~~
+$ ./run.sh
+$ ./exec.sh '/my_entrypoint.sh roseus /home/choreonoid/user_programs/sample-program.l (your-function)'
+## you can write program with robotsimulation-docker/chorenoid_docker/sample-program.l
+~~~
+
+* advanced version
+~~~
+$ ./run.sh
 $ ./exec.sh
 docker$ . catkin_ws/devel/setup.bash
 docker$ roscd hrpsys_choreonoid_tutorials
