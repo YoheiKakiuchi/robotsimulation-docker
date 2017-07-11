@@ -1,6 +1,7 @@
 #!/bin/bash
 
 RUNDOC=${DOCKER:-nvidia-docker}
+OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
 DEFAULT_USER_DIR="$(pwd)"
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/home/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
@@ -9,7 +10,7 @@ xhost +local:root
 
 ${RUNDOC} rm choreonoid_simulation
 
-${RUNDOC} run -it \
+${RUNDOC} run ${OPT} \
     --name="choreonoid_simulation" \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
