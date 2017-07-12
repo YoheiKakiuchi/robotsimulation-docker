@@ -1,14 +1,7 @@
 # Agent System Assignment / エージェントシステム課題 (2017)
 
 ## 課題 (Assignment)
-
-* 寝返り動作をつくる / Generate roll over motion (laying face up to laying face down )
-* 動作の作り方の説明 / Describe how to generate the motion
-* 講義の感想 / Write your impressions for this class (agent system)
-* advanced 動作の成功率を求める (success / try) / Require success rate of the motion
-* advanced 動作の作り方に学習要素を入れる / Generate a motion with knowledge of learning
-
-### 提出期限・提出方法 (Deadline)
+詳細は、工学部2号館 3階 機械事務室前に掲示
 
 ### 課題説明
 https://github.com/YoheiKakiuchi/robotsimulation-docker/wiki/files/agent_system_2017_assignment.pdf
