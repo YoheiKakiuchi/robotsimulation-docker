@@ -14,6 +14,12 @@ $ ./run.sh
 ## this equals to './run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch'
 ~~~
 
+### If you do not have NVIDIA graphic card
+~~~
+$ DOCKER=docker ./run.sh
+## add DOCKER=docker to ./exec.sh
+~~~
+
 ### Run perception nodes
 ~~~
 $ ./exec.sh '/my_entrypoint.sh roslaunch hrpsys_choreonoid_tutorials tracking_recognition.launch gui:=true'
