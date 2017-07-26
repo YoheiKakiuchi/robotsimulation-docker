@@ -1,0 +1,2 @@
+openrave.py --database kinematicreachability --robot=samplerobot.xml --manipname=larm --xyzdelta=0.8 --quatdelta=0.8
+openrave.py --database kinematicreachability --robot=samplerobot.xml --manipname=larm --show
