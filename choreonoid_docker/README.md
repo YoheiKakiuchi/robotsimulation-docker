@@ -14,6 +14,12 @@ $ ./run.sh
 ## this equals to './run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch'
 ~~~
 
+### If you do not have NVIDIA graphic card
+~~~
+$ DOCKER=docker ./run.sh
+## add DOCKER=docker to ./exec.sh
+~~~
+
 ### Run perception nodes
 ~~~
 $ ./exec.sh '/my_entrypoint.sh roslaunch hrpsys_choreonoid_tutorials tracking_recognition.launch gui:=true'
@@ -30,6 +36,7 @@ $ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_cho
 ~~~
 
 ### Run robot kicking ball (run with perception nodes)
+video: https://www.youtube.com/watch?v=tCI5L__FYic
 ~~~
 $ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/kick-ball-demo.l (kick-ball-to-goal-demo))'
 ~~~
