@@ -49,9 +49,9 @@ RUN /bin/bash -c "source /home/choreonoid/catkin_ws/devel/setup.bash && rosrun r
 
 ### openrave
 RUN apt-get update && \
-    apt-get install ros-indigo-openrave && \
+    apt-get install ros-indigo-openrave mayavi2 && \
     pip install --user numpy==1.9.1 && \
-    pip install --user scipy==0.7.1
+    pip install --user sympy==0.7.1
 
 ADD ./my_entrypoint.sh /
 

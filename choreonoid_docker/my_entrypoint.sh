@@ -7,7 +7,7 @@ source "${WORKHOME}/catkin_ws/devel/setup.bash"
 
 export PATH=`rospack find openrave`/bin:$PATH
 export PYTHONPATH=/opt/ros/indigo/bin:`openrave-config --python-dir`:$PYTHONPATH
-export OPENRAVE_HOME=/home/choreonoid/user_programs
+export OPENRAVE_HOME=${WORKHOME}/user_programs
 
 export ROS_IP=$(hostname -i)
 export ROS_HOSTNAME=$(hostname -i)
