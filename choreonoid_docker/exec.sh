@@ -9,4 +9,4 @@ ${RUNDOC} exec -it \
     --privileged \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    choreonoid_simulation ${VAR}
+    openrave_test ${VAR}

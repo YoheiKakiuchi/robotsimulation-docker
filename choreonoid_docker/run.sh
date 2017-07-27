@@ -17,6 +17,6 @@ ${RUNDOC} run ${OPT} \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="${PROG_DIR:-$DEFAULT_USER_DIR}:/home/choreonoid/user_programs" \
     -w="/home/choreonoid" \
-    yoheikakiuchi/choreonoidsim ${VAR}
+    openrave_test ${VAR}
 
 xhost -local:root
