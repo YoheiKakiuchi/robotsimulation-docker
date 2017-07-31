@@ -92,6 +92,10 @@ $ sudo reboot
 ~~~
 
 # Using choreonoid
+### Clone repository
+~~~
+git clone https://github.com/YoheiKakiuchi/robotsimulation-docker.git
+~~~
 
 ### Downlowd image
 ~~~
@@ -100,6 +104,7 @@ docker pull yoheikakiuchi/choreonoidsim
 
 ### Run simulation (choreonoid)
 ~~~
+$ cd robotsimulation-docker/choreonoid_docker
 $ ./run.sh
 ## this equals to './run.sh rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch'
 ~~~
