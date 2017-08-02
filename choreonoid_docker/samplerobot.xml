@@ -1,8 +1,8 @@
 <robot file="SampleRobot.dae">
  <manipulator name="larm" >
   <base>WAIST_LINK3</base>
-  <effector>LARM_LINK7</effector>
-  <Translation>0 0 0</Translation>
+  <effector>LARM_LINK6</effector>
+  <Translation>0 0 -0.12</Translation>
   <rotationaxis>0 0 0 0</rotationaxis>
  </manipulator>
 </robot>
