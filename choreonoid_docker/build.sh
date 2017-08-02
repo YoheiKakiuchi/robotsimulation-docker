@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#DOCKER=docker
-DOCKER=nvidia-docker
+RUNDOC=${DOCKER:-nvidia-docker}
+RUN_IMAGE=${IMAGE:-yoheikakiuchi/choreonoidsim}
 
-${DOCKER} build --tag=openrave_test .
+${RUNDOC} build --tag=${RUN_IMAGE} .
