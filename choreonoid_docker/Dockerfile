@@ -48,8 +48,8 @@ RUN cd /home/choreonoid/catkin_ws && \
 RUN /bin/bash -c "source /home/choreonoid/catkin_ws/devel/setup.bash && rosrun roseus generate-all-msg-srv.sh geometry_msgs sensor_msgs hrpsys_ros_bridge opencv_apps"
 
 ### openrave
-RUN apt-get update && \
-    apt-get install ros-indigo-openrave mayavi2 && \
+RUN apt-get update -y && \
+    apt-get install -y ros-indigo-openrave mayavi2 && \
     pip install --user numpy==1.9.1 && \
     pip install --user sympy==0.7.1
 
