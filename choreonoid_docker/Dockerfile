@@ -25,6 +25,8 @@ RUN cd /home/choreonoid/catkin_ws && \
     wstool update -t src && \
     git clone https://github.com/jsk-ros-pkg/jsk_robot.git src/jsk_robot && \
     (cd src/jsk_robot; rm -rf README.md jsk_baxter_robot jsk_naoqi_robot jsk_robot doc jsk_fetch_robot jsk_pr2_robot) && \
+## remove hrpsys_gazebo, hironx, hrpsys, opnehrp3 tutorials because it cause to install ros-indigo-hrpsys
+    (cd src/rtmros_tutorials; rm -rf hrpsys_gazebo_tutorials hironx_tutorial hrpsys_tutorials openhrp3_tutorials) && \
     rosdep install -y -r --from-paths src --ignore-src
 
 ### should be solved ...,  hrpsys-base, jsk_common, pr2_navigation ###
@@ -36,9 +38,13 @@ RUN cd /home/choreonoid/src && \
     git clone https://github.com/s-nakaoka/choreonoid.git && \
     mkdir -p choreonoid/build && \
     cd choreonoid/build && \
-    cmake .. -DCMAKE_INSTALL_PREFIX=${CNOID_INSTALL_DIR} -DENABLE_INSTALL_RPATH=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DBUILD_PYTHON_PLUGIN=ON -DBUILD_PYTHON_SIM_SCRIPT_PLUGIN=ON -DOPENRTM_DIR=/opt/ros/indigo && \
+    cmake .. -DCMAKE_INSTALL_PREFIX=${CNOID_INSTALL_DIR} -DENABLE_INSTALL_RPATH=ON -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DBUILD_PYTHON_PLUGIN=ON -DBUILD_PYTHON_SIM_SCRIPT_PLUGIN=ON  -DUSE_PYTHON3=OFF -DUSE_PYBIND11=OFF -DOPENRTM_DIR=/opt/ros/indigo && \
     make -j4 && \
     make install
+
+## build hrpsys parallel ??
+RUN cd /home/choreonoid/catkin_ws && \
+    /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && catkin build hrpsys --no-status --no-notify"
 
 ## build ros packages
 RUN cd /home/choreonoid/catkin_ws && \
