@@ -1,4 +1,5 @@
-FROM nvidia/cuda:8.0-devel
+## FROM nvidia/cuda:8.0-devel
+FROM nvidia/cuda:9.0-devel
 
 ENV WORKHOME /home/zed
 
@@ -37,11 +38,16 @@ RUN apt-get update && apt-get install -y \
 ### END ROS
 
 ### ZED
-COPY ZED_SDK_Linux_Ubuntu16_v2.1.2.run /tmp/ZED_SDK_Linux_Ubuntu16_v2.1.2.run
+## for 8.0/old
+## COPY ZED_SDK_Linux_Ubuntu16_v2.1.2.run /tmp/ZED_SDK_Linux_Ubuntu16_v2.1.2.run
+## for 9.0
+COPY ZED_SDK_Linux_Ubuntu16_v2.2.1.run /tmp/ZED_SDK_Linux_Ubuntu16_v2.2.1.run
+## for 8.0
+##COPY ZED_SDK_Linux_Ubuntu16_CUDA8_v2.2.0.run /tmp/ZED_SDK_Linux_Ubuntu16_CUDA8_v2.2.0.run
 
 ### for choreonoid
 RUN apt-get update -y
-RUN apt-get install -y libyaml-dev mesa-utils python-pip sudo
+RUN apt-get install -y libyaml-dev mesa-utils python-pip sudo python-catkin-tools usbutils iputils-ping net-tools
 
 ###
 RUN groupadd -g 1000 zeduser && \
@@ -52,12 +58,12 @@ RUN groupadd -g 1000 zeduser && \
 RUN mkdir -p ${WORKHOME}/catkin_ws
 RUN cd ${WORKHOME}/catkin_ws && \
     wstool init src && \
-    wstool set -y -t src zed_ros https://github.com/stereolabs/zed-ros-wrapper.git --git && \
+    wstool set -y -t src zed_wrapper https://github.com/stereolabs/zed-ros-wrapper.git --git && \
     wstool update -t src && \
     rosdep install -y -r --from-paths src --ignore-src
 
 ### install docker / not possible by dockerfile??
-# RUN su -l zed && sudo bash /tmp/ZED_SDK_Linux_Ubuntu16_v2.1.2.run
+# RUN su -l zed && sudo bash /tmp/ZED_SDK_Linux_Ubuntu16_CUDA8_v2.2.0.run
 
 ## build ros packages
 #RUN cd ${WORKHOME}/catkin_ws && \
