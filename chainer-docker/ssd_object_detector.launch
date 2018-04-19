@@ -1,0 +1,22 @@
+<launch>
+  <arg name="gpu" default="0" />
+  <arg name="model" default="/userdir/results/model_iter_24000" />
+  <arg name="label" default="/userdir/dataset/label_names.yaml" />
+
+  <node name="ssd_object_detector"
+        pkg="jsk_perception" type="ssd_object_detector.py"
+        output="screen">
+    <remap from="~input" to="/camera/rgb/image_rect_color" />
+    <rosparam subst_value="true">
+      gpu: $(arg gpu)
+    </rosparam>
+    <param name="model_path"  value="$(arg model)" />
+    <param name="label_names" value="$(arg label)" />
+  </node>
+
+  <nnode name="image_view" pkg="image_view" type="image_view"
+         if="$(arg gui)">
+    <remap from="image" to="ssd_object_detector/output/image" />
+  </nnode>
+
+</launch>
