@@ -1,5 +1,7 @@
-FROM nvidia/cuda:8.0-cudnn6-devel ## equal chainer/chainer
-# FROM nvidia/cuda:9.0-cudnn7-devel ## up_version
+## equal chainer/chainer
+FROM nvidia/cuda:8.0-cudnn6-devel
+## up_version
+# FROM nvidia/cuda:9.0-cudnn7-devel
 
 # RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
 # ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs
@@ -9,8 +11,10 @@ RUN apt-get -q -qq update -y && \
     apt-get -q -qq install -y --no-install-recommends \
     python-dev python-pip python-wheel python-setuptools
 
-RUN pip install --no-cache-dir cupy-cuda80==4.0.0 chainer==4.0.0  ## equal chainer/chainer
-# RUN pip install --no-cache-dir cupy-cuda90==4.0.0 chainer==4.0.0 ## up_version
+## equal chainer/chainer
+RUN pip install --no-cache-dir cupy-cuda80==4.0.0 chainer==4.0.0
+## up_version
+# RUN pip install --no-cache-dir cupy-cuda90==4.0.0 chainer==4.0.0
 
 #
 # ROS
@@ -49,6 +53,13 @@ RUN apt-get -q -qq update && apt-get -q -qq install -y \
 RUN pip install -U matplotlib
 RUN pip install -U numpy
 RUN pip install -U chainercv
+
+#
+# patch to jsk package
+#
+COPY ./jsk_recognition_ssd.patch /tmp
+WORKDIR /opt/ros/kinetic/lib/jsk_perception
+RUN patch -p3 < /tmp/jsk_recognition_ssd.patch
 
 # setup entrypoint
 COPY ./my_entrypoint.sh /
