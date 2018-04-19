@@ -1,0 +1,28 @@
+diff --git a/jsk_perception/node_scripts/ssd_train_dataset.py b/jsk_perception/node_scripts/ssd_train_dataset.py
+index 6c90d2d..631204e 100755
+--- a/jsk_perception/node_scripts/ssd_train_dataset.py
++++ b/jsk_perception/node_scripts/ssd_train_dataset.py
+@@ -159,6 +159,7 @@ if __name__ == '__main__':
+     p.add_argument("--val-iter", type=int, default=100)
+     p.add_argument("--log-iter", type=int, default=10)
+     p.add_argument("--model-iter", type=int, default=200)
++    p.add_argument("--single-process", default=None)
+ 
+     args = p.parse_args()
+ 
+@@ -195,8 +196,13 @@ if __name__ == '__main__':
+ 
+     train = TransformDataset(
+         train, Transform(model.coder, model.insize, model.mean))
+-    train_iter = chainer.iterators.MultiprocessIterator(
+-        train, args.batchsize)
++
++    if args.single_process is None:
++        train_iter = chainer.iterators.SerialIterator(
++            train, args.batchsize)
++    else:
++        train_iter = chainer.iterators.MultiprocessIterator(
++            train, args.batchsize)
+ 
+     test_iter = chainer.iterators.SerialIterator(
+         test, args.batchsize,
