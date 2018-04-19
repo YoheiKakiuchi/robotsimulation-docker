@@ -1,8 +1,8 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"chainercv"} ## name of image (should be same as in build.sh)
-cname=${DOCKER_CONTAINER:-"chainer_test"} ## name of container (should be same as in exec.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/chainer:8.0"} ## name of image (should be same as in build.sh)
+cname=${DOCKER_CONTAINER:-"chainer_ros"} ## name of container (should be same as in exec.sh)
 
 NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP"
 DEFAULT_USER_DIR="$(pwd)"
