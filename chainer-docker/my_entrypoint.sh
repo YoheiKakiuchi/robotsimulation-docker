@@ -4,6 +4,8 @@ set -e
 # setup ros environment
 if [ -e "/catkin_ws/devel/setup.bash" ]; then
     source "/catkin_ws/devel/setup.bash"
+else
+    source "/opt/ros/kinetic/setup.bash"
 fi
 
 MY_IP=${DOCKER_CLIENT_IP:-$(hostname -i)}
