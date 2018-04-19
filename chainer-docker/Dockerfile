@@ -61,6 +61,15 @@ COPY ./jsk_recognition_ssd.patch /tmp
 WORKDIR /opt/ros/kinetic/lib/jsk_perception
 RUN patch -p3 < /tmp/jsk_recognition_ssd.patch
 
+## load model
+COPY ./ssd_load_model.py /tmp
+RUN /tmp/ssd_load_model.py
+## OR
+## wget https://github.com/yuyu2172/share-weights/releases/download/0.0.3/ssd300_voc0712_2017_06_06.npz
+#RUN mkdir -p /root/.chainer/dataset/pfnet/chainercv/models
+#COPY ./ssd300_voc0712_2017_06_06.npz /root/.chainer/dataset/pfnet/chainercv/models/
+#RUN touch /root/.chainer/dataset/_dl_cache/_dl_lock -r /root/.chainer/dataset/pfnet/chainercv/models/ssd300_voc0712_2017_06_06.npz
+
 # setup entrypoint
 COPY ./my_entrypoint.sh /
 
