@@ -1,12 +1,14 @@
 #!/bin/bash
 
+OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
+cname=${DOCKER_CONTAINER:-"trans_robot_container"} ## name of container (should be same as in run.sh)
+
 VAR=${@:-"bash"}
-#echo "VAR: $VAR"
 
-RUNDOC=${DOCKER:-nvidia-docker}
-
-${RUNDOC} exec -it \
-    --privileged \
-    --env="DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
-    choreonoid_simulation ${VAR}
+docker exec ${OPT}          \
+       --privileged         \
+       --runtime=nvidia     \
+       --env="DISPLAY"      \
+       --env="QT_X11_NO_MITSHM=1" \
+       --workdir="/userdir" \
+       ${cname} ${VAR}
