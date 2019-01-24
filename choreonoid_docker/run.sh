@@ -11,6 +11,10 @@ DEFAULT_USER_DIR="$(pwd)"
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
 VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/userdir/footsal.yaml"}
 
+if [ "$DOCKER_CLIENT_IP" == "" ]; then
+#    export DOCKER_CLIENT_IP=127.0.0.1
+    export DOCKER_CLIENT_IP=localhost
+fi
 NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP"
 
 ##xhost +local:root
