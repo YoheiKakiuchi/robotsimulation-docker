@@ -6,7 +6,8 @@ cname=${DOCKER_CONTAINER:-"aerosim"} ## name of container (should be same as in 
 
 DEFAULT_USER_DIR="$(pwd)"
 
-VAR=${@:-"bash"}
+#VAR=${@:-"bash"}
+VAR=${@:-"roslaunch aero_gazebo aero_gazebo.launch"}
 
 if [ "$DOCKER_CLIENT_IP" == "" ]; then
 #    export DOCKER_CLIENT_IP=127.0.0.1
