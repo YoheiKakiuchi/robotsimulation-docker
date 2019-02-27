@@ -1,13 +1,22 @@
 #!/bin/bash
 set -e
 
+TRAGET_ROS_VERSION=melodic
+
 if [ ! -e ./aero-ros-pkg ]; then
     git clone https://github.com/seed-solutions/aero-ros-pkg.git
 fi
 #(cd aero_ros_pkg; git checkout -b for_docker origin/fix_travis)
 
-cp aero-ros-pkg/Dockerfile.melodic Dockerfile.aero
-##sed -i -e 's@FROM ros:kinetic-robot@FROM yoheikakiuchi/ros_gl:16.04@' Dockerfile.aero
+if [ "$TARGET_ROS_VERSION" == "melodic" ]; then
+    cp aero-ros-pkg/Dockerfile.melodic Dockerfile.aero
+    TARGET_UBUNTU_VERSION=18.04
+elif [ "$TARGET_ROS_VERSION" == "kinetic" ]; then
+    cp aero-ros-pkg/Dockerfile.kinetic Dockerfile.aero
+    sed -i -e 's@FROM ros:kinetic-robot@FROM yoheikakiuchi/ros_gl:16.04@' Dockerfile.aero
+    TARGET_UBUNTU_VERSION=16.04
+fi
+
 ## change build type
 sed -i -e 's@./setup.sh typeF@./setup.sh typeFCESy@' Dockerfile.aero
 cat <<EOF >> Dockerfile.aero
@@ -27,7 +36,10 @@ EOF
 
 cp my_entrypoint.sh aero-ros-pkg
 
-#docker build -f Dockerfile.ros_gl  --tag=yoheikakiuchi/ros_gl:16.04 .
-docker build -f Dockerfile.aero    --tag=yoheikakiuchi/aero-ros-pkg:18.04 aero-ros-pkg
+if [ "$TARGET_ROS_VERSION" == "kinetic" ]; then
+    docker build -f Dockerfile.ros_gl  --tag=yoheikakiuchi/ros_gl:16.04 .
+fi
+
+docker build -f Dockerfile.aero    --tag=yoheikakiuchi/aero-ros-pkg:${TARGET_UBUNTU_VERSION} aero-ros-pkg
 
 ### TODO add Dockerfile.aero_eus for euslisp interface
