@@ -26,7 +26,8 @@ RUN apt-get update -q -qq && apt-get install -q -qq --no-install-recommends -y \
     mesa-utils gettext \
     python-rosdep \
     python-rosinstall \
-    python-vcstools
+    python-vcstools \
+    && rm -rf /var/lib/apt/lists/*
 
 # setup environment
 ENV LANG C.UTF-8
