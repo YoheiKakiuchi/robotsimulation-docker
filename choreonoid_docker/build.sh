@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ ! -e ./rtmros_choreonoid ]; then
     git clone https://github.com/start-jsk/rtmros_choreonoid.git
     #git clone https://github.com/YoheiKakiuchi/rtmros_choreonoid.git
