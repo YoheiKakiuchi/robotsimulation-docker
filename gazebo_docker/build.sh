@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-TRAGET_ROS_VERSION=melodic
+TARGET_ROS_VERSION=melodic
 
 if [ ! -e ./aero-ros-pkg ]; then
     git clone https://github.com/seed-solutions/aero-ros-pkg.git
@@ -20,6 +20,7 @@ fi
 ## change build type
 sed -i -e 's@./setup.sh typeF@./setup.sh typeFCESy@' Dockerfile.aero
 cat <<EOF >> Dockerfile.aero
+### add by robot-simulation-docker
 ADD ./my_entrypoint.sh /
 ENTRYPOINT ["/my_entrypoint.sh"]
 CMD ["bash"]
@@ -37,7 +38,7 @@ EOF
 cp my_entrypoint.sh aero-ros-pkg
 
 if [ "$TARGET_ROS_VERSION" == "kinetic" ]; then
-    docker build -f Dockerfile.ros_gl  --tag=yoheikakiuchi/ros_gl:16.04 .
+    docker build -f ../ros_gl/Dockerfile.ros_gl  --tag=yoheikakiuchi/ros_gl:16.04 .
 fi
 
 docker build -f Dockerfile.aero    --tag=yoheikakiuchi/aero-ros-pkg:${TARGET_UBUNTU_VERSION} aero-ros-pkg
