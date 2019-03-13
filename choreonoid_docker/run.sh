@@ -15,7 +15,9 @@ if [ "$DOCKER_CLIENT_IP" == "" ]; then
 #    export DOCKER_CLIENT_IP=127.0.0.1
     export DOCKER_CLIENT_IP=localhost
 fi
+
 NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP"
+#NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP --env=NVIDIA_DRIVER_CAPABILITIES --env=NVIDIA_VISIBLE_DEVICES"
 
 ##xhost +local:root
 xhost +si:localuser:root
