@@ -7,10 +7,6 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 $ sudo apt-get update
 
 $ sudo apt-get install \
-    linux-image-extra-$(uname -r) \
-    linux-image-extra-virtual
-
-$ sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -27,7 +23,7 @@ $ sudo add-apt-repository \
 
 $ sudo apt-get update
 
-$ sudo apt-get install docker-ce
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 $ sudo gpasswd -a $USER docker
 ~~~
