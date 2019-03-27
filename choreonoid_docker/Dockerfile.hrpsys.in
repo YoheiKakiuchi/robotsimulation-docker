@@ -8,7 +8,7 @@ ENV MY_ROSWORKSPACE /hrpsys_ws
 WORKDIR ${MY_ROSWORKSPACE}
 
 RUN wstool init src && \
-    wstool set -y -t src hrpsys   https://github.com/fkanehiro/hrpsys-base.git --git && \
+    wstool set -y -t src hrpsys   https://github.com/ishiguroJSK/hrpsys-base.git --git -v fullbody-ik-khi && \
     wstool set -y -t src openhrp3 https://github.com/fkanehiro/openhrp3.git    --git && \
     wstool update -t src
 RUN sed -i -e 's@"Use Doxygen" ON@"Use Doxygen" OFF@' src/hrpsys/CMakeLists.txt

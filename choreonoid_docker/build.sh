@@ -4,7 +4,8 @@ set -e
 DOCKER_USER=yoheikakiuchi
 
 #ROS_VERSION=kinetic
-UBUNTU_VERSION=16.04 ## 18.04(not tested)
+#UBUNTU_VERSION=16.04 ## 18.04(not tested)
+UBUNTU_VERSION=ishiguro ## 18.04(not tested)
 CHOREONOID_VERSION=release-1.6 ## latest
 
 ### opengl
