@@ -1,0 +1,47 @@
+####
+FROM yoheikakiuchi/hrpsys:@UBUNTU_VERSION@_@CHOREONOID_VERSION@
+
+SHELL ["/bin/bash", "-c"]
+
+#### ros pkg
+ENV MY_ROSWORKSPACE /catkin_ws
+
+WORKDIR ${MY_ROSWORKSPACE}
+RUN source /hrpsys_ws/devel/setup.bash && \
+    wstool init src && \
+    wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
+# (for compiling...)   wstool set -y -t src rtmros_common https://github.com/start-jsk/rtmros_common --git && \
+    wstool set -y -t src rtmros_common https://github.com/YoheiKakiuchi/rtmros_common --git -v fix_rtc_name2 && \
+#    wstool set -y -t src jsk_common https://github.com/jsk-ros-pkg/jsk_common.git --git && \
+    wstool set -y -t src pr2_navigation https://github.com/PR2/pr2_navigation.git --git && \
+# (install)  wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid --git && \
+    wstool update -t src && \
+    git clone https://github.com/jsk-ros-pkg/jsk_robot.git src/jsk_robot && \
+## why?
+    (cd src/jsk_robot; rm -rf README.md jsk_baxter_robot jsk_naoqi_robot jsk_robot doc jsk_fetch_robot jsk_pr2_robot) && \
+## remove hrpsys_gazebo, hironx, hrpsys, opnehrp3 tutorials because it cause to install ros-indigo-hrpsys
+    (cd src/rtmros_tutorials; rm -rf hrpsys_gazebo_tutorials hironx_tutorial hrpsys_tutorials openhrp3_tutorials)
+
+## for travis
+RUN mkdir -p src/rtmros_choreonoid
+COPY rtmros_choreonoid src/rtmros_choreonoid
+
+## should be solved ...,  hrpsys-base, jsk_common, pr2_navigation ###
+RUN source /hrpsys_ws/devel/setup.bash && \
+    apt update -q -qq && \
+    apt install -q -qq -y ros-${ROS_DISTRO}-jsk-tilt-laser ros-${ROS_DISTRO}-jsk-recognition && \
+    (rosdep install -q -y -r --from-paths src --ignore-src || echo 'Ignore_rosdep_error') && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/
+
+### build ros packages
+WORKDIR ${MY_ROSWORKSPACE}
+RUN /bin/bash -c "source /hrpsys_ws/devel/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup pr2_navigation_self_filter --no-status --no-notify -j 1 -p 1"
+
+### for run programs
+RUN /bin/bash -c "source ${MY_ROSWORKSPACE}/devel/setup.bash && catkin clean -b -l -y && rosrun roseus generate-all-msg-srv.sh geometry_msgs sensor_msgs hrpsys_ros_bridge opencv_apps"
+
+###
+ADD ./my_entrypoint.sh /
+ENTRYPOINT ["/my_entrypoint.sh"]
+CMD ["bash"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-cname=${DOCKER_CONTAINER:-"trans_robot_container"} ## name of container (should be same as in run.sh)
+cname=${DOCKER_CONTAINER:-"choreonoidsim"} ## name of container (should be same as in run.sh)
 
 VAR=${@:-"bash"}
 
