@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoidsim:16.04"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoidsim:16.04_release-1.6"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"choreonoidsim"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
@@ -11,13 +11,17 @@ DEFAULT_USER_DIR="$(pwd)"
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
 VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/userdir/footsal.yaml"}
 
-if [ "$DOCKER_CLIENT_IP" == "" ]; then
-#    export DOCKER_CLIENT_IP=127.0.0.1
-    export DOCKER_CLIENT_IP=localhost
+## --net=mynetworkname
+## docker inspect -f '{{.NetworkSettings.Networks.mynetworkname.IPAddress}}' choreonoidsim
+## docker inspect -f '{{.NetworkSettings.Networks.mynetworkname.Gateway}}'   choreonoidsim
+
+if [ "$DOCKER_ROS_IP" == "" ]; then
+#    export DOCKER_ROS_IP=127.0.0.1
+    export DOCKER_ROS_IP=localhost
 fi
 
-NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP"
-#NET_OPT="--net=host --env=ROS_IP --env=ROS_HOSTNAME --env=DOCKER_CLIENT_IP --env=NVIDIA_DRIVER_CAPABILITIES --env=NVIDIA_VISIBLE_DEVICES"
+NET_OPT="--net=host --env=DOCKER_ROS_IP --env=DOCKER_ROS_MASTER_URI"
+#NET_OPT="--net=host --env=NVIDIA_DRIVER_CAPABILITIES --env=NVIDIA_VISIBLE_DEVICES"
 
 ##xhost +local:root
 xhost +si:localuser:root
