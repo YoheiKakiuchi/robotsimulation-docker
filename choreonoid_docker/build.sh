@@ -6,7 +6,15 @@ BUILD_CMD=docker
 
 #ROS_VERSION=kinetic
 UBUNTU_VERSION=16.04 ## 18.04(not tested)
-CHOREONOID_VERSION=release-1.6 ## latest
+CHOREONOID_VERSION=latest
+#CHOREONOID_VERSION=release-1.6 ## latest
+
+USE_IMAGE_IN_DOCKERHUB=yes
+if [ ${USE_IMAGE_IN_DOCKERHUB} == "yes" ]; then
+    DOCKER_USER=yoheikakiuchi
+    OLD_BUILD_CMD=${BUILD_CMD}
+    BUILD_CMD=echo
+fi
 
 ### opengl
 if [ "$UBUNTU_VERSION" == 18.04 ]; then
@@ -33,6 +41,11 @@ sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${
 ${BUILD_CMD} build -f Dockerfile.hrpsys.${UBUNTU_VERSION}_${CHOREONOID_VERSION} \
        --tag=${DOCKER_USER}/hrpsys:${UBUNTU_VERSION}_${CHOREONOID_VERSION} .
 
+##
+if [ ${USE_IMAGE_IN_DOCKERHUB} == "yes" ]; then
+    DOCKER_USER=yoheikakiuchi
+    BUILD_CMD=${OLD_BUILD_CMD}
+fi
 ### simulation environment
 sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" \
     Dockerfile.choreonoidsim.in > Dockerfile.choreonoidsim.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
