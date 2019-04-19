@@ -1,0 +1,10 @@
+## for not using nvidia docker2
+FROM osrf/ros:kinetic-desktop-full
+
+## see https://github.com/nvidia/nvidia-container-runtime#environment-variables-oci-spec
+# ENV NVIDIA_VISIBLE_DEVICES all
+# ENV NVIDIA_DRIVER_CAPABILITIES compute,utility,graphics,display
+
+# setup environment
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
