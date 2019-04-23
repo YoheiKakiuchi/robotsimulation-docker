@@ -12,6 +12,7 @@ RUN source /hrpsys_ws/devel/setup.bash && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
 # (for compiling...)   wstool set -y -t src rtmros_common https://github.com/start-jsk/rtmros_common --git && \
 #    wstool set -y -t src rtmros_common https://github.com/YoheiKakiuchi/rtmros_common --git -v fix_rtc_name2 && \
+    wstool set -y -t src rtmros_common https://github.com/YoheiKakiuchi/rtmros_common --git -v fix_compile_with_source && \
     wstool set -y -t src jsk_common https://github.com/jsk-ros-pkg/jsk_common.git --git && \
     wstool set -y -t src pr2_navigation https://github.com/PR2/pr2_navigation.git --git && \
 # (install)  wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid --git && \
@@ -40,8 +41,3 @@ RUN /bin/bash -c "source /hrpsys_ws/devel/setup.bash && catkin build hrpsys_chor
 
 ### for run programs
 RUN /bin/bash -c "source ${MY_ROSWORKSPACE}/devel/setup.bash && catkin clean -b -l -y && rosrun roseus generate-all-msg-srv.sh geometry_msgs sensor_msgs hrpsys_ros_bridge opencv_apps"
-
-###
-ADD ./my_entrypoint.sh /
-ENTRYPOINT ["/my_entrypoint.sh"]
-CMD ["bash"]
