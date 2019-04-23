@@ -5,7 +5,7 @@ https://github.com/YoheiKakiuchi/robotsimulation-docker/blob/master/README.md
 
 ### Downlowd image for simulation
 ~~~
-docker pull yoheikakiuchi/choreonoidsim
+docker pull yoheikakiuchi/choreonoidsim:16.04_release-1.6
 ~~~
 
 ### Run simulation
