@@ -7,7 +7,6 @@ VAR=${@:-"bash"}
 
 docker exec ${OPT}          \
        --privileged         \
-       --runtime=nvidia     \
        --env="DISPLAY"      \
        --env="QT_X11_NO_MITSHM=1" \
        --workdir="/userdir" \

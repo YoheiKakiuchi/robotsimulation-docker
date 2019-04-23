@@ -6,7 +6,7 @@ cname=${DOCKER_CONTAINER:-"choreonoidsim"} ## name of container (should be same 
 
 DEFAULT_USER_DIR="$(pwd)"
 
-#VAR=${@:-"bash"}
+#VAR=${@:-"bash --rcfile=/my_entrypoint.sh"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
 VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/userdir/footsal.yaml"}
@@ -32,6 +32,7 @@ docker run ${OPT}    \
     --privileged     \
     --runtime=nvidia \
     ${NET_OPT}       \
+    --env="DOCKER_ROS_SETUP=/catkin_ws/devel/setup.bash" \
     --env="DISPLAY"  \
     --env="ROBOT=JAXON_RED" \
     --env="QT_X11_NO_MITSHM=1" \
