@@ -27,30 +27,30 @@ $ ./exec.sh '/my_entrypoint.sh roslaunch hrpsys_choreonoid_tutorials tracking_re
 
 ### Run robot moving nodes  (run with perception nodes)
 ~~~
-$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/walk-to-target.l (progn (make-random-first-position) (walk-to-target))'
+$ ./exec.sh '/my_entrypoint.sh roseus /catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/walk-to-target.l (progn (make-random-first-position) (walk-to-target))'
 ~~~
 
 ### Run robot getting up (StateNet)
 ~~~
-$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/jvrc-statenet.l (start-statenet-demo))'
+$ ./exec.sh '/my_entrypoint.sh roseus /catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/jvrc-statenet.l (start-statenet-demo)'
 ~~~
 
 ### Run robot kicking ball (run with perception nodes)
 video: https://www.youtube.com/watch?v=tCI5L__FYic
 ~~~
-$ ./exec.sh '/my_entrypoint.sh roseus catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/kick-ball-demo.l (kick-ball-to-goal-demo))'
+$ ./exec.sh '/my_entrypoint.sh roseus /catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/euslisp/action_and_perception/kick-ball-demo.l (kick-ball-to-goal-demo)'
 ~~~
 
 ### Run rviz (visualizer of ROS)
 ~~~
-$ ./exec.sh '/my_entrypoint.sh rosrun rviz rviz -d catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/jaxon_jvrc.rviz'
+$ ./exec.sh '/my_entrypoint.sh rosrun rviz rviz -d /catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/jaxon_jvrc.rviz'
 ~~~
 
 ### Runnig your programs 
 * easy version
 ~~~
 $ ./run.sh
-$ ./exec.sh '/my_entrypoint.sh roseus /home/choreonoid/user_programs/sample-program.l (your-function)'
+$ ./exec.sh '/my_entrypoint.sh roseus /userdir/sample-program.l (your-function)'
 ## you can write program with robotsimulation-docker/chorenoid_docker/sample-program.l
 ~~~
 
@@ -58,7 +58,7 @@ $ ./exec.sh '/my_entrypoint.sh roseus /home/choreonoid/user_programs/sample-prog
 ~~~
 $ ./run.sh
 $ ./exec.sh
-docker$ . catkin_ws/devel/setup.bash
+docker$ . /catkin_ws/devel/setup.bash
 docker$ roscd hrpsys_choreonoid_tutorials
 docker$ roseus euslisp/jaxon_jvrc-interface.l
 docker$ roseus$ jaxon_jvrc-init
