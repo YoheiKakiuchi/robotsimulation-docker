@@ -9,7 +9,7 @@ set -e
 #
 ####
 
-DOCKER_USER=${BUILD_NAME:-yoheikakiuchi}
+CURRENT_NAME=${BUILD_NAME:-yoheikakiuchi}
 BUILD_CMD=${BUILD:-docker}
 
 ### ubuntu version ###
@@ -23,6 +23,8 @@ CHOREONOID_VERSION=release-1.6 ## recomended
 
 ###
 USE_IMAGE_IN_DOCKERHUB=${USE_IMAGE:-"yes"}
+
+DOCKER_USER=${CURRENT_NAME}
 if [ ${USE_IMAGE_IN_DOCKERHUB} == "yes" ]; then
     DOCKER_USER=yoheikakiuchi
     OLD_BUILD_CMD=${BUILD_CMD}
@@ -42,16 +44,17 @@ fi
 ### choreonoid
 if [ "$CHOREONOID_VERSION" == latest ]; then
     ### todo
-    sed -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" Dockerfile.choreonoid.latest.in > Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
+    sed -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
+	Dockerfile.choreonoid.latest.in > Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 else
-    sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" \
+    sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
         Dockerfile.choreonoid.in > Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 fi
 ${BUILD_CMD} build -f Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION} \
        --tag=${DOCKER_USER}/choreonoid:${UBUNTU_VERSION}_${CHOREONOID_VERSION} .
 
 ### hrpsys
-sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" \
+sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
     Dockerfile.hrpsys.in > Dockerfile.hrpsys.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 ${BUILD_CMD} build -f Dockerfile.hrpsys.${UBUNTU_VERSION}_${CHOREONOID_VERSION} \
        --tag=${DOCKER_USER}/hrpsys:${UBUNTU_VERSION}_${CHOREONOID_VERSION} .
@@ -62,10 +65,10 @@ if [ ${USE_IMAGE_IN_DOCKERHUB} == "yes" ]; then
     BUILD_CMD=${OLD_BUILD_CMD}
 fi
 ### simulation environment
-sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" \
+sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
     Dockerfile.choreonoidsim.in > Dockerfile.choreonoidsim.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 if [ ! -e ./rtmros_choreonoid ]; then
     git clone https://github.com/start-jsk/rtmros_choreonoid.git
 fi
 ${BUILD_CMD} build -f Dockerfile.choreonoidsim.${UBUNTU_VERSION}_${CHOREONOID_VERSION} \
-       --tag=${DOCKER_USER}/choreonoidsim:${UBUNTU_VERSION}_${CHOREONOID_VERSION} .
+       --tag=${CURRENT_NAME}/choreonoidsim:${UBUNTU_VERSION}_${CHOREONOID_VERSION} .

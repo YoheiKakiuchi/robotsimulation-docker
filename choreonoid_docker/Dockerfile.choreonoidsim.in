@@ -1,5 +1,5 @@
 ####
-FROM yoheikakiuchi/hrpsys:@UBUNTU_VERSION@_@CHOREONOID_VERSION@
+FROM @NAME_SPACE@/hrpsys:@UBUNTU_VERSION@_@CHOREONOID_VERSION@
 
 SHELL ["/bin/bash", "-c"]
 

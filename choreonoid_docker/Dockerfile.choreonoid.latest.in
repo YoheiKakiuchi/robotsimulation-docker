@@ -1,5 +1,5 @@
 ### after ros_gl
-FROM yoheikakiuchi/ros_gl:@UBUNTU_VERSION@
+FROM @NAME_SPACE@/ros_gl:@UBUNTU_VERSION@
 
 ## WORKDIR /userdir
 

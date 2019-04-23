@@ -1,6 +1,6 @@
 ### after ros_gl
 # docker build -f <this_file> -t jsk_private/hrpsys:16.04 .
-FROM yoheikakiuchi/choreonoid:@UBUNTU_VERSION@_@CHOREONOID_VERSION@
+FROM @NAME_SPACE@/choreonoid:@UBUNTU_VERSION@_@CHOREONOID_VERSION@
 
 ENV MY_ROSWORKSPACE /hrpsys_ws
 
