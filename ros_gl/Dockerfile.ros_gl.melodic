@@ -13,3 +13,9 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility,graphics,display
 # setup environment
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
+RUN apt-get update -q -qq && apt-get install -q -qq -y \
+    mesa-utils gettext less \
+    lsb-release \
+    && apt-get dist-upgrade -q -qq -y \
+    && rm -rf /var/lib/apt/lists/*
