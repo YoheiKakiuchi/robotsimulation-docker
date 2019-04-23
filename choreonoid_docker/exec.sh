@@ -3,7 +3,10 @@
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
 cname=${DOCKER_CONTAINER:-"choreonoidsim"} ## name of container (should be same as in run.sh)
 
-VAR=${@:-"bash"}
+VAR=${@:-"bash --rcfile /my_entryrc"}
+if [ $# -eq 0 -a -z "$OPT" ]; then
+    OPT=-it
+fi
 
 docker exec ${OPT}          \
        --privileged         \
