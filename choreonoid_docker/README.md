@@ -1,3 +1,82 @@
+
+# Choreonoid Examples
+
+## Downlowd image for choreonoid
+
+For Nvidia users
+
+~~~
+docker pull yoheikakiuchi/choreonoid:16.04_latest_ros
+## use ./run_choreonoid.sh
+~~~
+
+For NOT Nvidia users (not using OpenGL)
+
+~~~
+docker pull yoheikakiuchi/choreonoid:16.04_no_gl_latest_ros
+## use ./run_no_gl_choreonoid.sh
+~~~
+
+## Run Choreonoid
+In the directory, "robotsimulation-docker/choreonoid-docker"
+
+Nvidia
+~~~
+./run_choreonoid.sh
+~~~
+
+NOT Nvidia
+~~~
+./run_no_gl_choreonoid.sh
+~~~
+
+# Choreography Sample
+
+https://choreonoid.org/ja/tutorials.html
+
+
+- File -> Open Project -> SR1Minimum.cnoid (Samplerobot minimumを選択)
+- (check SR1)
+- File -> New -> PoseSeq
+- View -> Show View -> Pose Roll
+- on 'Pose Roll' view
+  - Insert
+  - Update
+
+# WRS2018 (ROS sample)
+
+https://choreonoid.org/ja/manuals/latest/wrs2018/index.html
+
+In the directory, "robotsimulation-docker/choreonoid-docker"
+
+~~~
+(terminal 1)
+$ ./run_choreonoid roscore
+
+(terminal 2)
+$ DOCKER_OPTION=-it ./exec_choreonoid.sh bash
+$ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSpiderSS-ROS.py
+
+(terminal 3)
+$ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
+Ros core running on host OS
+~~~
+
+OR
+
+~~~
+(terminal 1)
+$ roscore ###　ノートパソコンなど
+
+(terminal 2)
+$ DOCKER_OPTION=-it ./run_choreonoid.sh bash
+$ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSpiderSS-ROS.py
+
+(terminal 3)
+$ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
+~~~
+
+
 # Using simulation with ROS
 
 ## Install docker and nvidia-docker
