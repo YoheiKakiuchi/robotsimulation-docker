@@ -36,9 +36,10 @@ https://choreonoid.org/ja/tutorials.html
 
 
 - File -> Open Project -> SR1Minimum.cnoid (Samplerobot minimumを選択)
-- (check SR1)
+- (select SR1)
 - File -> New -> PoseSeq
 - View -> Show View -> Pose Roll
+- (select PoseSeq)
 - on 'Pose Roll' view
   - Insert
   - Update
