@@ -6,7 +6,7 @@ cname=${DOCKER_CONTAINER:-"choreonoid"} ## name of container (should be same as 
 
 DEFAULT_USER_DIR="$(pwd)"
 
-VAR=${@:-"bash --rcfile /my_entryrc"}
+VAR=${@:-"bash --rcfile /my_entryrc -c choreonoid"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/choreonoid/catkin_ws/src/rtmros_choreonoid/hrpsys_choreonoid_tutorials/config/footsal.yaml"}
 #VAR=${@:-"rtmlaunch hrpsys_choreonoid_tutorials jaxon_jvrc_choreonoid.launch LOAD_OBJECTS:=true ENVIRONMENT_YAML:=/userdir/footsal.yaml"}
