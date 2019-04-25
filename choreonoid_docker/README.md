@@ -55,7 +55,7 @@ In the directory, "robotsimulation-docker/choreonoid-docker"
 $ ./run_choreonoid roscore
 
 (terminal 2)
-$ DOCKER_OPTION=-it ./exec_choreonoid.sh bash
+$ ./exec_choreonoid.sh bash
 $ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSpiderSS-ROS.py
 
 (terminal 3)
