@@ -57,6 +57,8 @@ $ ./run_choreonoid roscore
 (terminal 2)
 $ ./exec_choreonoid.sh bash
 $ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSpiderSS-ROS.py
+(push simulator-start button / シミュレータースタートボタンを押す)
+https://choreonoid.org/ja/manuals/latest/simulation/execution-and-playback.html
 
 (terminal 3)
 $ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
@@ -71,6 +73,8 @@ $ roscore ###　ノートパソコンなど
 (terminal 2)
 $ DOCKER_OPTION=-it ./run_choreonoid.sh bash
 $ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSpiderSS-ROS.py
+(push simulator-start button / シミュレータースタートボタンを押す)
+https://choreonoid.org/ja/manuals/latest/simulation/execution-and-playback.html
 
 (terminal 3)
 $ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
