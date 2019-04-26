@@ -60,7 +60,6 @@ $ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSp
 
 (terminal 3)
 $ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
-Ros core running on host OS
 ~~~
 
 OR
@@ -77,6 +76,30 @@ $ choreonoid /choreonoid_ws/devel/share/choreonoid-1.7/WRS2018/script/T1M-AizuSp
 $ ./exec_choreonoid.sh /my_entrypoint.sh rosrun choreonoid_joy node
 ~~~
 
+Hint
+
+- joy node(/choreonoid_joy) publishes msgs like below
+
+~~~
+sensor_msgs/Joy
+header: 
+  seq: 67
+  stamp: 
+    secs: 1556275115
+    nsecs: 374474259
+  frame_id: ''
+axes: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+buttons: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+~~~
+
+button configuration of /choreonoid_joy
+
+~~~
+length(axes) == 8 / from -1.0 to 1.0
+axes: [left_R/L, left_U/D, right_R/L, right_U/D, pad_U/D, pad_R/L, L2, R2]
+length(buttons) == 11 / 0 or 1
+buttons: [×, ○, □, △, L1, R1, SHARE, OPTIONS, left_stick, right_stick, PS]
+~~~
 
 # Using simulation with ROS
 
