@@ -5,9 +5,10 @@ SHELL ["/bin/bash", "-c"]
 
 #### ros pkg
 ENV MY_ROSWORKSPACE /catkin_ws
+ENV CNOIDSIM_PARENT_SETUP /hrpsys_ws/devel/setup.bash
 
 WORKDIR ${MY_ROSWORKSPACE}
-RUN source /hrpsys_ws/devel/setup.bash && \
+RUN source ${CNOIDSIM_PARENT_SETUP} && \
     wstool init src && \
     wstool set -y -t src rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git && \
 # (for compiling...)   wstool set -y -t src rtmros_common https://github.com/start-jsk/rtmros_common --git && \
@@ -28,7 +29,7 @@ RUN mkdir -p src/rtmros_choreonoid
 COPY rtmros_choreonoid src/rtmros_choreonoid
 
 ## should be solved ...,  hrpsys-base, jsk_common, pr2_navigation ###
-RUN source /hrpsys_ws/devel/setup.bash && \
+RUN source ${CNOIDSIM_PARENT_SETUP} && \
     apt update -q -qq && \
     apt install -q -qq -y ros-${ROS_DISTRO}-jsk-tilt-laser ros-${ROS_DISTRO}-jsk-recognition && \
     (rosdep install -q -y -r --from-paths src --ignore-src || echo 'Ignore_rosdep_error') && \
@@ -37,7 +38,7 @@ RUN source /hrpsys_ws/devel/setup.bash && \
 
 ### build ros packages
 WORKDIR ${MY_ROSWORKSPACE}
-RUN /bin/bash -c "source /hrpsys_ws/devel/setup.bash && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup pr2_navigation_self_filter --no-status --no-notify -j 1 -p 1"
+RUN /bin/bash -c "source ${CNOIDSIM_PARENT_SETUP} && catkin build hrpsys_choreonoid_tutorials jsk_robot_startup pr2_navigation_self_filter --no-status --no-notify -j 1 -p 1 && catkin clean -b -l -y"
 
 ### for run programs
-RUN /bin/bash -c "source ${MY_ROSWORKSPACE}/devel/setup.bash && catkin clean -b -l -y && rosrun roseus generate-all-msg-srv.sh geometry_msgs sensor_msgs hrpsys_ros_bridge opencv_apps"
+RUN /bin/bash -c "source ${MY_ROSWORKSPACE}/devel/setup.bash && rosrun roseus generate-all-msg-srv.sh geometry_msgs sensor_msgs hrpsys_ros_bridge opencv_apps"

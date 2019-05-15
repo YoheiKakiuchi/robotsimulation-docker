@@ -5,6 +5,8 @@ FROM yoheikakiuchi/ros_gl:16.04
 
 SHELL ["/bin/bash", "-c"]
 
+ENV CNOID_PARENT_SETUP /opt/ros/$ROS_DISTRO/setup.bash
+
 RUN apt-get update -q -qq && apt-get install -q -qq -y \
     mesa-utils python-pip \
     ros-${ROS_DISTRO}-catkin python-wstools python-catkin-tools \
@@ -14,7 +16,7 @@ RUN apt-get update -q -qq && apt-get install -q -qq -y \
     && rm -rf /var/lib/apt/lists/*
 
 ### install choreonoid
-ENV CNOID_BRANCH master
+ENV CNOID_BRANCH @CHOREONOID_VERSION@
 
 ## choreonoid
 WORKDIR /choreonoid_ws
@@ -26,17 +28,21 @@ RUN wstool init src && \
     wstool set -y -t src choreonoid_joy             https://github.com/s-nakaoka/choreonoid_joy.git --git && \
     wstool update -t src && \
     sed -i -e 's@OPENRTM_VERSION STREQUAL "1.1.2"@OPENRTM_VERSION STREQUAL "1.1.0"@' src/choreonoid/CMakeLists.txt && \
+    sed -i -e 's@OPENRTM_VERSION VERSION_EQUAL "1.1.2"@OPENRTM_VERSION VERSION_EQUAL "1.1.0"@' src/choreonoid/CMakeLists.txt && \    
     sed -i -e 's@sudo apt-get -y install@apt-get install -q -qq -y@' src/choreonoid/misc/script/install-requisites-ubuntu-16.04.sh && \
     apt-get update -q -qq && \
     src/choreonoid/misc/script/install-requisites-ubuntu-16.04.sh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-### for latest, use python3 (experimental)
 WORKDIR /choreonoid_ws
 
-RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
-    catkin build -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DUSE_BUILTIN_CAMERA_IMAGE_IDL=ON -DBUILD_WRS2018=ON && \
+RUN source ${CNOID_PARENT_SETUP} && \
+    catkin build choreonoid -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DUSE_BUILTIN_CAMERA_IMAGE_IDL=ON -DBUILD_WRS2018=ON @EXTRA_CNOID_CMAKE_OPTIONS@
+    
+RUN source ${CNOID_PARENT_SETUP} && \
+    if [ -e /choreonoid_ws/src/choreonoid/thirdparty/pybind11-2.2.4/include/pybind11 ]; then ln -sf /choreonoid_ws/src/choreonoid/thirdparty/pybind11-2.2.4/include/pybind11 devel/include/choreonoid-1.7; fi && \
+    catkin build            -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DUSE_BUILTIN_CAMERA_IMAGE_IDL=ON -DBUILD_WRS2018=ON @EXTRA_CNOID_CMAKE_OPTIONS@ && \
     catkin clean -b -l -y
 
 ###
