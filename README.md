@@ -1,9 +1,3 @@
-# エージェントシステム課題・講義資料
-
-課題は 「Choreonoidの振り付けする」　もしくは　「Dockerでシミュレーションを動かす」のいずれかを提出してください
-
-https://github.com/YoheiKakiuchi/robotsimulation-docker/blob/master/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A020190424_docker.pdf
-
 # MainComponents
 
 https://github.com/YoheiKakiuchi/robotsimulation-docker/tree/master/choreonoid_docker
