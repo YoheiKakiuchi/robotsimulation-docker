@@ -22,15 +22,21 @@ ENV CNOID_BRANCH @CHOREONOID_VERSION@
 WORKDIR /choreonoid_ws
 
 RUN wstool init src && \
-    (cd src; git clone --depth 1 -b ${CNOID_BRANCH} https://github.com/s-nakaoka/choreonoid.git choreonoid) && \
-    wstool set -y -t src choreonoid_rosplugin       https://github.com/s-nakaoka/choreonoid_rosplugin.git --git && \
-    wstool set -y -t src choreonoid_ros_samples     https://github.com/s-nakaoka/choreonoid_ros_samples.git --git && \
-    wstool set -y -t src choreonoid_joy             https://github.com/s-nakaoka/choreonoid_joy.git --git && \
+#    (cd src; git clone --depth 1 -b ${CNOID_BRANCH} https://github.com/s-nakaoka/choreonoid.git choreonoid) && \
+    (cd src; git clone --depth 1 -b ${CNOID_BRANCH} https://github.com/YoheiKakiuchi/choreonoid.git choreonoid) && \
+#    wstool set -y -t src choreonoid_rosplugin       https://github.com/s-nakaoka/choreonoid_rosplugin.git --git && \
+    wstool set -y -t src choreonoid_rosplugin       https://github.com/YoheiKakiuchi/choreonoid_rosplugin.git -v latest_for_agentsystem2019 --git && \
+#    wstool set -y -t src choreonoid_ros_samples     https://github.com/s-nakaoka/choreonoid_ros_samples.git --git && \
+    wstool set -y -t src choreonoid_ros_samples     https://github.com/YoheiKakiuchi/choreonoid_ros_samples.git -v latest_for_agentsystem2019 --git && \
+#    wstool set -y -t src choreonoid_joy             https://github.com/s-nakaoka/choreonoid_joy.git --git && \
+    wstool set -y -t src choreonoid_joy             https://github.com/YoheiKakiuchi/choreonoid_joy.git -v latest_for_agentsystem2019 --git && \
+    wstool set -y -t src aizuspider_description     https://github.com/agent-system/aizuspider_description.git --git && \
     wstool update -t src && \
     sed -i -e 's@OPENRTM_VERSION STREQUAL "1.1.2"@OPENRTM_VERSION STREQUAL "1.1.0"@' src/choreonoid/CMakeLists.txt && \
     sed -i -e 's@OPENRTM_VERSION VERSION_EQUAL "1.1.2"@OPENRTM_VERSION VERSION_EQUAL "1.1.0"@' src/choreonoid/CMakeLists.txt && \    
     sed -i -e 's@sudo apt-get -y install@apt-get install -q -qq -y@' src/choreonoid/misc/script/install-requisites-ubuntu-16.04.sh && \
     apt-get update -q -qq && \
+    rosdep install -q -y -r --from-paths src --ignore-src || echo 'Ignore rosdep error' && \
     src/choreonoid/misc/script/install-requisites-ubuntu-16.04.sh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
