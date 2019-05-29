@@ -46,11 +46,11 @@ fi
 if [ "$CHOREONOID_VERSION" == release-1.6 ]; then
     ### not use python3
     sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
-	-e "s/@EXTRA_CNOID_CMAKE_OPTIONS@/-DUSE_PYTHON3=OFF -DUSE_PYBIND11=OFF/" \
+        -e "s/@EXTRA_CNOID_CMAKE_OPTIONS@/-DUSE_PYTHON3=OFF -DUSE_PYBIND11=OFF/" \
         Dockerfile.choreonoid.new.in > Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 else
     sed -e "s/@CHOREONOID_VERSION@/${CHOREONOID_VERSION}/" -e "s/@UBUNTU_VERSION@/${UBUNTU_VERSION}/" -e "s/@NAME_SPACE@/${DOCKER_USER}/" \
-	-e "s/@EXTRA_CNOID_CMAKE_OPTIONS@/-DUSE_PYTHON3=OFF/" \
+        -e "s/@EXTRA_CNOID_CMAKE_OPTIONS@/-DUSE_PYTHON3=OFF/" \
         Dockerfile.choreonoid.new.in > Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION}
 fi
 ${BUILD_CMD} build -f Dockerfile.choreonoid.${UBUNTU_VERSION}_${CHOREONOID_VERSION} \
