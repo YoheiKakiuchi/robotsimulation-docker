@@ -40,13 +40,13 @@ class JoyPub:
                 msg.buttons = [0]*11
                 if escaped:
                     if key == 'A':
-                        msg.axes[1] = -1
+                        msg.axes[1] = -1 ## forward 0.5 m/sec
                     elif key == 'B':
-                        msg.axes[1] = 1
+                        msg.axes[1] = 1 ## backward
                     elif key == 'C':
-                        msg.axes[0] = 1
+                        msg.axes[0] = 1 ## cw (-yaw) 0.6 rad/sec
                     elif key == 'D':
-                        msg.axes[0] = -1
+                        msg.axes[0] = -1 ## ccw(+yaw)
                 self.pub_.publish(msg)
         except Exception as e:
             print(e)
