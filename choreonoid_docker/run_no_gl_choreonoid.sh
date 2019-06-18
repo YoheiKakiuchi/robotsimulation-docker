@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoid:16.04_no_gl_release-1.7"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoid:16.04dev_no_gl_release-1.7"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"choreonoid"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
