@@ -17,6 +17,8 @@ DOCKER_BUILD_OPTION='--no-cache'
 #UBUNTU_VERSION=18.04 ## (ROS melodic) not tested
 UBUNTU_VERSION=16.04  ## (ROS kinetic) recomended
 #UBUNTU_VERSION=16.04_no_gl ## for not using nvidia docker2
+#UBUNTU_VERSION=16.04dev  ## (ROS kinetic) recomended
+#UBUNTU_VERSION=16.04dev_no_gl ## for not using nvidia docker2
 
 ### choreonoid version ###
 #CHOREONOID_VERSION=master ##
@@ -37,7 +39,7 @@ fi
 if [ "$UBUNTU_VERSION" == 18.04 ]; then
     ### not tested
     ${BUILD_CMD} build --pull ${DOCKER_BUILD_OPTION} -f ../ros_gl/Dockerfile.ros_gl.melodic --tag=${DOCKER_USER}/ros_gl:${UBUNTU_VERSION} .
-elif [ "$UBUNTU_VERSION" == "16.04_no_gl" ]; then
+elif [ "$UBUNTU_VERSION" == "16.04_no_gl" -o "$UBUNTU_VERSION" == "16.04dev_no_gl" ]; then
     ${BUILD_CMD} build --pull ${DOCKER_BUILD_OPTION} -f ../ros_gl/Dockerfile.ros_no_gl --tag=${DOCKER_USER}/ros_gl:${UBUNTU_VERSION} .
 else
     ${BUILD_CMD} build --pull ${DOCKER_BUILD_OPTION} -f ../ros_gl/Dockerfile.ros_gl --tag=${DOCKER_USER}/ros_gl:${UBUNTU_VERSION} .
