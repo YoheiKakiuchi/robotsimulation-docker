@@ -28,11 +28,11 @@ RUN wstool init src && \
 #    (cd src; git clone --depth 1 -b ${CNOID_BRANCH} https://github.com/s-nakaoka/choreonoid.git choreonoid) && \
     (cd src; git clone --depth 1 -b ${CNOID_BRANCH} https://github.com/YoheiKakiuchi/choreonoid.git choreonoid) && \
 #    wstool set -y -t src choreonoid_rosplugin       https://github.com/s-nakaoka/choreonoid_rosplugin.git --git && \
-    wstool set -y -t src choreonoid_rosplugin       https://github.com/YoheiKakiuchi/choreonoid_rosplugin.git -v latest_for_agentsystem2019 --git && \
+    wstool set -y -t src choreonoid_rosplugin       https://github.com/YoheiKakiuchi/choreonoid_rosplugin.git   -v latest_for_agentsystem2019 --git && \
 #    wstool set -y -t src choreonoid_ros_samples     https://github.com/s-nakaoka/choreonoid_ros_samples.git --git && \
     wstool set -y -t src choreonoid_ros_samples     https://github.com/YoheiKakiuchi/choreonoid_ros_samples.git -v latest_for_agentsystem2019 --git && \
 #    wstool set -y -t src choreonoid_joy             https://github.com/s-nakaoka/choreonoid_joy.git --git && \
-    wstool set -y -t src choreonoid_joy             https://github.com/YoheiKakiuchi/choreonoid_joy.git -v latest_for_agentsystem2019 --git && \
+    wstool set -y -t src choreonoid_joy             https://github.com/YoheiKakiuchi/choreonoid_joy.git         -v latest_for_agentsystem2019 --git && \
     wstool set -y -t src aizuspider_description     https://github.com/agent-system/aizuspider_description.git --git && \
     wstool update -t src && \
     sed -i -e 's@OPENRTM_VERSION STREQUAL "1.1.2"@OPENRTM_VERSION STREQUAL "1.1.0"@' src/choreonoid/CMakeLists.txt && \
@@ -53,6 +53,12 @@ RUN source ${CNOID_PARENT_SETUP} && \
     if [ -e /choreonoid_ws/src/choreonoid/thirdparty/pybind11-2.2.4/include/pybind11 ]; then ln -sf /choreonoid_ws/src/choreonoid/thirdparty/pybind11-2.2.4/include/pybind11 devel/include/choreonoid-1.7; fi && \
     catkin build            -DENABLE_CORBA=ON -DBUILD_CORBA_PLUGIN=ON -DBUILD_OPENRTM_PLUGIN=ON -DBUILD_HELLO_WORLD_SAMPLE=ON -DBUILD_SPRING_MODEL_SAMPLE=ON -DUSE_BUILTIN_CAMERA_IMAGE_IDL=ON -DBUILD_WRS2018=ON @EXTRA_CNOID_CMAKE_OPTIONS@ && \
     catkin clean -b -l -y
+
+### extra aizuspider programs
+WORKDIR /choreonoid_ws/src/aizuspider_description
+
+RUN /usr/bin/c++ -DInvPendulumController_EXPORTS -I/choreonoid_ws/devel/include/choreonoid-1.7 -I/usr/include/eigen3 -I/opt/ros/${ROS_DISTRO}/include -O3 -DNDEBUG -fPIC -std=c++11 -c InvPendulumController.cpp && \
+    /usr/bin/c++  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,InvPendulumController.so InvPendulumController.o -o InvPendulumController.so -lroscpp -L/opt/ros/${ROS_DISTRO}/lib
 
 ###
 ADD ./my_entrypoint.sh /
