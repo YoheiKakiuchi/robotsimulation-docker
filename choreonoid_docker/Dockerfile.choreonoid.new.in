@@ -15,6 +15,9 @@ RUN apt-get update -q -qq && apt-get install -q -qq -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+### for quaternion
+RUN pip install pyquaternion
+
 ### install choreonoid
 ENV CNOID_BRANCH @CHOREONOID_VERSION@
 
