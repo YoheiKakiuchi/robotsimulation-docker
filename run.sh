@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"chainer_rl:latest"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"chainer_rl_ros:latest"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"chainer_test"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
