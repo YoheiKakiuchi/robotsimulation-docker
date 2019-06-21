@@ -6,6 +6,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility,graphics,display
 # setup environment
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN dpkg --add-architecture i386
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -37,9 +38,10 @@ RUN apt-get update && apt-get install -y \
 #
 # install original environment for openai/gym
 #
-COPY gym-twowheels /chainer
+COPY gym-twowheels /chainer/gym-twowheels
 WORKDIR /chainer/gym-twowheels
 RUN pip install -e .
+RUN (cd /chainer/chainerrl/examples/gym; sed -i -e 's/import gym$/import gym, gym_twowheels/' *.py)
 
 ####
 # install ROS
