@@ -14,19 +14,20 @@ class TwowheelsEnv(gym.Env):
     def __init__(self):
 
         self.gravity = 9.8
-        self.tau = 0.02  # seconds between state updates
+        #self.tau = 0.02  # seconds between state updates
+        self.tau = 0.005  # seconds between state updates
         self.kinematics_integrator = 'euler'
 
         self.mass_body     = 40
         self.mass_wheel    =  4
-        self.inertia_body  = 10
-        self.inertia_wheel =  1
-        self.radius_wheel  = 0.2
+        self.inertia_body  = 1.666
+        self.inertia_wheel = 0.02
+        self.radius_wheel  = 0.1
         self.length_pole   = 0.9
 
         # Angle at which to fail the episode
         self.theta_threshold = 25  *  math.pi / 180
-        self.phi_threshold   = 360 *  math.pi / 180
+        self.phi_threshold   = 720 *  math.pi / 180
 
         # Angle limit set to 2 * theta_threshold_radians so failing observation is still within bounds
         high = np.array([
@@ -36,7 +37,7 @@ class TwowheelsEnv(gym.Env):
             np.finfo(np.float32).max])
 
         ## continuous
-        act = np.array([40])
+        act = np.array([100])
         self.action_space = spaces.Box(-act, act, dtype=np.float32)
         ## discrete
         #self.action_space = spaces.Discrete(2) -tq, +tq
@@ -84,18 +85,23 @@ class TwowheelsEnv(gym.Env):
         temp = 1.0 / (aaa * ccc - bbb * bbb)
 
         theta_dotdot = temp * ( aaa * ddd - (aaa + bbb) * u_torque )
-        phi_dotdot = temp * ( -(aaa + bbb)*ddd + (aaa + 2 *bbb + ccc) * u_torque )
+        phi_dotdot =   temp * ( -(aaa + bbb)*ddd + (aaa + 2 *bbb + ccc) * u_torque )
+
+        #print( temp * - (aaa + bbb) )
+        #print( temp * (aaa + 2 * bbb + ccc) )
+        #print( temp * aaa * self.mass_body * self.gravity * self.length_pole )
+        #print( temp * (- aaa - bbb) * self.mass_body * self.gravity * self.length_pole )
 
         if self.kinematics_integrator == 'euler':
-            phi     = phi     + self.tau * phi_dot
-            phi_dot = phi_dot + self.tau * phi_dotdot
             theta     = theta     + self.tau * theta_dot
             theta_dot = theta_dot + self.tau * theta_dotdot
+            phi       = phi       + self.tau * phi_dot
+            phi_dot   = phi_dot   + self.tau * phi_dotdot
         else: # semi-implicit euler
-            phi_dot = phi_dot + self.tau * phi_dotdot
-            phi     = phi     + self.tau * phi_dot
             theta_dot = theta_dot + self.tau * theta_dotdot
             theta     = theta     + self.tau * theta_dot
+            phi_dot   = phi_dot   + self.tau * phi_dotdot
+            phi       = phi       + self.tau * phi_dot
 
         self.state = (theta, theta_dot, phi, phi_dot)
 
@@ -118,13 +124,13 @@ class TwowheelsEnv(gym.Env):
             reward = 0.0
 
         reward = reward - math.fabs(self.state[0]) /  5.0
-        reward = reward - math.fabs(self.state[2]) / 10.0
+        reward = reward - math.fabs(self.state[1]+self.state[3]) / 10.0
         ## state, reward, done    , {}
         ## [4]  ,       ,  T or F , nothing
         return np.array(self.state), reward, done, {}
 
     def reset(self): # 状態を初期化し、初期の観測値を返す
-        self.state = self.np_random.uniform(low=-0.05, high=0.05, size=(4,))
+        self.state = self.np_random.uniform(low=-0.3, high=0.3, size=(4,))
         self.steps_beyond_done = None
         return np.array(self.state)
 
@@ -132,8 +138,8 @@ class TwowheelsEnv(gym.Env):
         screen_width  = 600
         screen_height = 400
 
-        #world_width = 2.2 * (2 * self.phi_threshold * self.radius_wheel)
-        world_width = 2.2
+        world_width = 2.1 * (2 * self.phi_threshold * self.radius_wheel)
+        #world_width = 2.2
         # world_width = self.x_threshold * 2
         scale       = screen_width / world_width
 
@@ -201,7 +207,7 @@ class TwowheelsEnv(gym.Env):
         pole.v = [(l,b), (l,t), (r,t), (r,b)]
 
         the = self.state[0]
-        rot = self.state[0] + self.state[1]
+        rot = self.state[0] + self.state[2]
         x_pos = 2 * self.radius_wheel * rot
         cartx = x_pos * scale + screen_width / 2.0 # MIDDLE OF CART
 
