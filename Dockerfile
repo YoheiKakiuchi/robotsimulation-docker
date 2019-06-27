@@ -74,5 +74,14 @@ RUN rosdep init && rosdep update
 ENV ROS_DISTRO melodic
 RUN apt-get update -q -qq && apt-get install -q -qq --no-install-recommends -y \
     ros-${ROS_DISTRO}-desktop-full \
+    ros-${ROS_DISTRO}-catkin python-wstools python-catkin-tools \
     && rm -rf /var/lib/apt/lists/*
 ### ROS install(end)
+
+###
+WORKDIR /catkin_ws
+RUN wstool init src && \
+    wstool set -y -t src aizuspider_description https://github.com/agent-system/aizuspider_description.git --git && \
+    wstool update -t src
+
+RUN bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin build aizuspider_description"
