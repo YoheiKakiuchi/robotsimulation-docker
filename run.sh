@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"chainer_rl_ros:latest"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/chainer_rl_ros:latest"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"chainer_test"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
@@ -35,7 +35,6 @@ docker run ${OPT}    \
     ${NET_OPT}       \
     --env="DOCKER_ROS_SETUP=/catkin_ws/devel/setup.bash" \
     --env="DISPLAY"  \
-    --env="ROBOT=JAXON_RED" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --name=${cname} \
