@@ -26,8 +26,8 @@ class TwowheelsEnv(gym.Env):
         self.length_pole   = 0.9
 
         # Angle at which to fail the episode
-        self.theta_threshold = 25  *  math.pi / 180
-        self.phi_threshold   = 720 *  math.pi / 180
+        self.theta_threshold = 30  *  math.pi / 180
+        self.phi_threshold   = 2160 *  math.pi / 180
 
         # Angle limit set to 2 * theta_threshold_radians so failing observation is still within bounds
         high = np.array([
@@ -37,7 +37,7 @@ class TwowheelsEnv(gym.Env):
             np.finfo(np.float32).max])
 
         ## continuous
-        act = np.array([100])
+        act = np.array([200])
         self.action_space = spaces.Box(-act, act, dtype=np.float32)
         ## discrete
         #self.action_space = spaces.Discrete(2) -tq, +tq

@@ -8,16 +8,18 @@ import numpy as np
 
 ####
 import subprocess
-import rospy
-
 import time
 
-from aizuspider_description.srv import (
-    Control,
+try:
+    import rospy
+    from aizuspider_description.srv import (
+        Control,
     )
-from std_srvs.srv import (
-    Empty,
+    from std_srvs.srv import (
+        Empty,
     )
+except:
+    print('do not use twowheelsros')
 
 class RosEnv(gym.Env):
     metadata = {
@@ -47,7 +49,7 @@ class RosEnv(gym.Env):
             np.finfo(np.float32).max])
 
         ## continuous
-        act = np.array([100])
+        act = np.array([200])
         self.action_space = spaces.Box(-act, act, dtype=np.float32)
         ## discrete
         #self.action_space = spaces.Discrete(2) -tq, +tq
