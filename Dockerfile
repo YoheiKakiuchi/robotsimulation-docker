@@ -42,6 +42,7 @@ COPY gym-twowheels /chainer/gym-twowheels
 WORKDIR /chainer/gym-twowheels
 RUN pip install -e .
 RUN (cd /chainer/chainerrl/examples/gym; sed -i -e 's/import gym$/import gym, gym_twowheels/' *.py)
+RUN (cd /chainer/chainerrl/examples/mujoco; sed -i -e 's/import gym$/import gym, gym_twowheels/' *.py)
 
 ####
 # install ROS
@@ -75,13 +76,14 @@ ENV ROS_DISTRO melodic
 RUN apt-get update -q -qq && apt-get install -q -qq --no-install-recommends -y \
     ros-${ROS_DISTRO}-desktop-full \
     ros-${ROS_DISTRO}-catkin python-wstools python-catkin-tools \
+    ros-${ROS_DISTRO}-roseus \
     && rm -rf /var/lib/apt/lists/*
 ### ROS install(end)
 
 ###
 WORKDIR /catkin_ws
 RUN wstool init src && \
-    wstool set -y -t src aizuspider_description https://github.com/agent-system/aizuspider_description.git --git && \
+    wstool set -y -t src aizuspider_description https://github.com/agent-system/aizuspider_description.git -v dev_tip --git && \
     wstool update -t src
 
 RUN bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin build aizuspider_description"
