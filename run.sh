@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION:-"-it"} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"physx_test"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/physx_test"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"physx_cont"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
