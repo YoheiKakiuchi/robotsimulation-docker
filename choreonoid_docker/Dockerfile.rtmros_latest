@@ -21,16 +21,13 @@ RUN source ${CNOIDSIM_PARENT_SETUP} && \
 #    wstool set -y -t src rtmros_common https://github.com/YoheiKakiuchi/rtmros_common --git -v fix_compile_with_source && \
     wstool set -y -t src jsk_common https://github.com/jsk-ros-pkg/jsk_common.git --git && \
     wstool set -y -t src pr2_navigation https://github.com/PR2/pr2_navigation.git --git && \
-# (travis)  wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid --git && \
+    wstool set -y -t src rtmros_choreonoid https://github.com/start-jsk/rtmros_choreonoid --git && \
     wstool update -t src && \
     git clone https://github.com/jsk-ros-pkg/jsk_robot.git src/jsk_robot && \
 ## why?
     (cd src/jsk_robot; rm -rf README.md jsk_baxter_robot jsk_naoqi_robot jsk_robot doc jsk_fetch_robot jsk_pr2_robot) && \
 ## remove hrpsys_gazebo, hironx, hrpsys, opnehrp3 tutorials because it cause to install ros-indigo-hrpsys
     (cd src/rtmros_tutorials; rm -rf hrpsys_gazebo_tutorials hironx_tutorial hrpsys_tutorials openhrp3_tutorials)
-
-## for travis
-COPY . src/rtmros_choreonoid
 
 ## should be solved ...,  hrpsys-base, jsk_common, pr2_navigation ###
 RUN source ${CNOIDSIM_PARENT_SETUP} && \
