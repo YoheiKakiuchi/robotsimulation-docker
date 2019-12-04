@@ -20,12 +20,11 @@ RUN add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/a
 
 RUN apt-get update -q -qq && apt-get install -q -qq -y \
     mesa-utils python-pip \
-    ros-${ROS_DISTRO}-catkin python-wstools python-catkin-tools \
-    librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg \
+    ros-${ROS_DISTRO}-catkin python-wstools python-catkin-tools usbutils \
+    librealsense2-dkms librealsense2-utils=2.29.0-0~realsense0.1579 librealsense2-dev=2.29.0-0~realsense0.1579 librealsense2-dbg=2.29.0-0~realsense0.1579 librealsense2=2.29.0-0~realsense0.1579 librealsense2-gl=2.29.0-0~realsense0.1579 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-## apt-get install librealsense2-dkms librealsense2-utils=2.29.0-0~realsense0.1579 librealsense2-dev=2.29.0-0~realsense0.1579 librealsense2-dbg=2.29.0-0~realsense0.1579 librealsense2=2.29.0-0~realsense0.1579 librealsense2-gl=2.29.0-0~realsense0.1579
-## ROS wrapper のパッケージをビルドすると,ROSから実行ができます.
+##  librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg \
 
 ##
 WORKDIR /catkin_ws/src
@@ -35,6 +34,7 @@ WORKDIR /catkin_ws
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
     apt-get update -q -qq && \
     rosdep install -q -y -r --from-paths src --ignore-src || echo 'Ignore rosdep error' && \
+    apt-get remove ros-kinetic-librealsense ros-kinetic-librealsense2 ros-kinetic-realsense-camera ros-kinetic-realsense2-camera ros-kinetic-realsense2-descript && \
     apt-get clean  && \
     rm -rf /var/lib/apt/lists/*
 
