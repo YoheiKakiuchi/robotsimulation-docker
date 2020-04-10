@@ -6,11 +6,11 @@
 For Nvidia users
 
 ~~~
-docker pull yoheikakiuchi/choreonoid:16.04_latest_ros
+docker pull yoheikakiuchi/choreonoid:release-1.7
 ## use ./run_choreonoid.sh
 ~~~
 
-For NOT Nvidia users (not using OpenGL)
+For NOT Nvidia users (not using OpenGL) / Under construction
 
 ~~~
 docker pull yoheikakiuchi/choreonoid:16.04_no_gl_latest_ros
@@ -112,7 +112,7 @@ https://github.com/YoheiKakiuchi/robotsimulation-docker/blob/master/README.md
 
 ### Downlowd image for simulation
 ~~~
-docker pull yoheikakiuchi/choreonoidsim:16.04_release-1.6
+docker pull yoheikakiuchi/choreonoidsim:release-1.7
 ~~~
 
 ### Run simulation
