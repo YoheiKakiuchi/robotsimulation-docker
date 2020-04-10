@@ -1,7 +1,8 @@
 #!/bin/bash
 
 OPT=${DOCKER_OPTION} ## -it --cpuset-cpus 0-2
-iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoidsim:16.04dev_release-1.7"} ## name of image (should be same as in build.sh)
+#iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoidsim:16.04dev_release-1.7"} ## name of image (should be same as in build.sh)
+iname=${DOCKER_IMAGE:-"yoheikakiuchi/choreonoidsim:release-1.7"} ## name of image (should be same as in build.sh)
 cname=${DOCKER_CONTAINER:-"choreonoidsim"} ## name of container (should be same as in exec.sh)
 
 DEFAULT_USER_DIR="$(pwd)"
@@ -32,7 +33,7 @@ docker rm ${cname}
 
 docker run ${OPT}    \
     --privileged     \
-    --runtime=nvidia \
+    --gpus all \
     ${NET_OPT}       \
     --env="DOCKER_ROS_SETUP=/catkin_ws/devel/setup.bash" \
     --env="DISPLAY"  \
