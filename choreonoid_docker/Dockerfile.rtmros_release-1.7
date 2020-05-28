@@ -1,6 +1,12 @@
 ### after ros_gl
 FROM yoheikakiuchi/rtmros_choreonoid:release-1.7
 
+## TODO: fix rtmros_choreonoid
+RUN apt update -q -qq && \
+    apt remove -q -qq -y ros-${ROS_DISTRO}-hrpsys ros-${ROS_DISTRO}-openhrp3 ros-${ROS_DISTRO}-hrpsys-ros-bridge && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/
+
 ###
 ADD ./my_entrypoint.sh /
 ADD ./my_entryrc /
